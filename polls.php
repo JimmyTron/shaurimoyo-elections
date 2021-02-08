@@ -2,73 +2,65 @@
 include 'includes.php';
 // Connect to MySQL
 $pdo = pdo_connect_mysql();
-// MySQL Query that will get all the answers from the "poll_answers" table ordered by the number of votes (descending)
-$stmt = $pdo->prepare('SELECT * FROM polls');
-$stmt->execute();
-// Fetch all polls
-// $polls = $stmt->fetch(PDO::FETCH_ASSOC);
+// MySQL query that selects all the polls and poll answers
+$stmt = $pdo->query('SELECT p.*, GROUP_CONCAT(pa.title ORDER BY pa.id) AS answers FROM polls p LEFT JOIN poll_answers pa ON pa.poll_id = p.id GROUP BY p.id');
 $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
-if ($polls) {
-	    // MySQL Query that will get all the answers from the "poll_answers" table ordered by the number of votes (descending)
-        $stmt = $pdo->prepare('SELECT * FROM poll_answers WHERE poll_id = ? ORDER BY votes DESC');
-        // Fetch all poll answers
-          // Total number of votes, will be used to calculate the percentage
-    
-    $color = 0;   
-}
-else {
-// Output msg
-$msg = 'No Polls available for display!';
-}
-?>
-<?=template_header('Poll Results')?>
-<div class="col-lg-12 col-md-12 col-sm-12">
-<?php if ($msg): ?>
-    <div class="showback">
-    <div class="alert alert-danger"><b><?=$msg?></b></div>
-     </div>
-    <?php else: ?>
-<?php foreach ($polls as $poll):
-    $color = $poll['col_id']; 
-    if ($color==1) {
-         $styl = 'badge-red';
-    }
-    elseif ($color==2) {
-        $styl = 'badge-green';
-   }
-   elseif ($color==3) {
-    $styl = 'badge-purple';
-    }
-    elseif ($color==4) {
-        $styl = 'badge-white';
-    }
-?> 
-    <div class="showback">
-    <div class="badge-r2  <?=$styl?>"><small><?=$poll['title']?></small></div>
-    <h4><i class="fa fa-angle-right"></i> <?=$poll['title']?></h4>
-    <b><?=$poll['desc']?></b>
-    <?php 
-            $stmt->execute([$poll['id']]);
-            $poll_answers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $total_votes = 0;
-            foreach ($poll_answers as $poll_answer) {
-                    // Every poll answers votes will be added to total votes
-                    $total_votes += $poll_answer['votes'];
-                }
-            
-          foreach ($poll_answers as $poll_answer): ?>
 
-    <p><?=$poll_answer['title']?> <span>(<?=$poll_answer['votes']?> Votes)</span></p>
-    <div class="progress progress-striped active">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=<?=@round(($poll_answer['votes']/$total_votes)*100)?>% aria-valuemin="0" aria-valuemax="100" style="width: <?=@round(($poll_answer['votes']/$total_votes)*100)?>%">
-            <span class="sr-only"><?=@round(($poll_answer['votes']/$total_votes)*100)?>% Complete</span>
-            <b class="dark"><?=@round(($poll_answer['votes']/$total_votes)*100)?>%</b>
+?>
+<?=template_header('Polls')?>
+	<p>Welcome to the index page, you can view the list of polls below.</p>
+    
+     <!-- row -->
+     <div class="row mt">
+          <div class="col-md-12">
+            <div class="content-panel">
+            <?php if ($polls): ?>
+    <div class="showback">
+    <table class="table table-striped table-advance table-hover">
+                <h4><i class="fa fa-angle-right"></i> Advanced Table</h4>
+                <hr>
+                <thead>
+                  <tr>
+                    <th><i class="fa fa-bullhorn"></i> #</th>
+                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Posts</th>
+                    <th><i class="fa fa-bookmark"></i> Aspirants</th>
+                    <th><i class=" fa fa-edit"></i> Symbol</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($polls as $poll): ?>
+                  <tr>
+                    <td>
+                      <a href="basic_table.html#"><?=$poll['id']?></a>
+                    </td>
+                    <td class="hidden-phone"><?=$poll['title']?></td>
+                    <td><?=$poll['answers']?> </td>
+                    <td><span class="label label-success label-mini">active</span></td>
+                    <td>
+                      <a href="vote.php?id=<?=$poll['id']?>"  class="btn btn-success btn-xs" title="View Poll"><i class="fa fa-check"></i></a>
+                      
+                      <a href="delete.php?id=<?=$poll['id']?>" class="btn btn-danger btn-xs" title="Delete Poll"><i class="fa fa-trash-o "></i></a>
+                    </td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+     </div>
+     <a href="create.php" class="btn btn-round btn-info">Add Poll</a>
+    <?php else: 
+        $msg = 'No Polls available for display!';?>
+        <div class="alert alert-danger"><b><?=$msg?></b></div>
+        <a href="create.php" class="btn btn-round btn-primary">Create Poll</a>
+    <?php endif; ?>
+            </div>
+            <!-- /content-panel -->
+          </div>
+          <!-- /col-md-12 -->
         </div>
-    </div>
-<?php endforeach;?>
+        <!-- /row -->
+        
+	
 </div>
-<?php endforeach; ?>
-</div>
-</div>
-<?php endif; ?>
+
 <?=template_footer()?>

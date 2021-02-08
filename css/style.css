@@ -16,7 +16,7 @@ Website: http://Alvarez.is/
 
 /* BASIC THEME CONFIGURATION */
 body {
-    color: #797979;
+    color: #050000;
 	background: #eaeaea;
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
@@ -53,7 +53,7 @@ a, a:hover, a:focus {
 }
 
 .modal-title {
-	color: white;
+	color: rgb(7, 1, 1);
 }
 
 .btn-round {
@@ -1648,7 +1648,7 @@ PANELS CONFIGURATIONS
 
 /* showcase background */
 .showback {
-	background: #ffffff;
+	background: #e6e5e5;
 	padding: 15px;
 	margin-bottom: 15px;
 	box-shadow: 0px 3px 2px #aab2bd;
@@ -2030,7 +2030,7 @@ ul li {
 /*LOCK SCREEN CONF*/
 #showtime {
 	width: 100%;
-	color: #fff;
+	color: rgb(247, 239, 5);
 	font-size: 50px;
 	margin-bottom: 30px;
 	margin-top: 250px;
@@ -2057,7 +2057,7 @@ ul li {
 
 .lock-screen .modal-content {
 	position: relative;
-	background-color: #f2f2f2;
+	background-color: #12a8df;
 	background-clip: padding-box;
 	border: 1px solid #999;
 	border: 1px solid rgba(0, 0, 0, .2);
@@ -2471,7 +2471,7 @@ ul.inbox-nav li a span.label {
 }
 ul.labels-info li h4 {
     padding-top:5px;
-    color:#5c5c5e;
+    color:#000004;
     font-size:15px;
     text-transform:uppercase;
 }
@@ -2534,7 +2534,7 @@ ul.labels-info li img {
 }
 .wht-bg h4 {
     font-size:24px;
-    color:#a2a2a2;
+    color:#050000;
     font-weight:300;
 }
 .table-inbox-wrap {

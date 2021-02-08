@@ -24,7 +24,14 @@ function template_header($title) {
       <meta name="author" content="Dashboard">
       <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
       <title>$title</title>
+      <SCRIPT language=JavaScript>
+      function reload(form)
+      {
+      var val=form.cat.options[form.cat.options.selectedIndex].value;
+      self.location='input.php?poll=' + val ;
+      }
 
+      </script>
       <!-- Bootstrap core CSS -->
       <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <!--external css-->
@@ -46,7 +53,7 @@ function template_header($title) {
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--logo start-->
-      <a href="index.php" class="logo"><b>SHAURIMOYO<span> PARISH</span></b></a>
+      <a href="index.php" class="logo"><b>SHAURIMOYO<span> PARISH ELECTIONS</span></b></a>
       <!--logo end-->
       <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
@@ -64,13 +71,37 @@ function template_header($title) {
               </li>
             </ul>
           </li>
+          <li id="header_notification_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+              <i class="fa fa-bell-o"></i>
+              <span class="badge bg-warning">7</span>
+              </a>
+            <ul class="dropdown-menu extended notification">
+              <div class="notify-arrow notify-arrow-yellow"></div>
+              <li>
+                <p class="yellow">You have 7 new notifications</p>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                  Server Overloaded.
+                  <span class="small italic">4 mins.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="index.html#">See all notifications</a>
+              </li>
+            </ul>
+          </li>
           <!-- notification dropdown end -->
         </ul>
         <!--  notification end -->
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="index.php"">Logout</a></li>
+          <li><a class="logout" href="index.php"">Home</a></li>
+          <li><a class="logout" href="create.php"">Create Poll</a></li>
+          <li><a class="logout" href="polls.php"">Poll Results</a></li>
         </ul>
       </div>
     </header>
@@ -99,7 +130,8 @@ function template_header($title) {
             <ul class="sub">
               <li><a href="create.php">Create Polls</a></li>
               <li><a href="polls.php">Poll Results</a></li>
-              
+              <li><a href="login.html">Logout</a></li>
+              <li><a href="lock_screen.html">Lock Screen</a></li>
             </ul>
           </li>
         </ul>

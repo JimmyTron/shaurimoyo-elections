@@ -55,8 +55,9 @@ if (isset($_GET['id'])) {
         </div>
         <?php endfor; ?>
         <div>
-            <input type="submit" value="Vote" class="btn btn-theme">
+            <!-- <input type="submit" value="Vote" class="btn btn-theme"> -->
             <a href="result.php?id=<?=$poll['id']?>" class="btn btn-theme02"><i class="fa fa-check"></i>View Result </button></a>
+            <a href="#"class="btn btn-theme"><i class="fa fa-check"></i>Vote </button></a>
         </div>
     </form>
 </div>
